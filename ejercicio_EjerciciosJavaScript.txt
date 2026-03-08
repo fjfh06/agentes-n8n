@@ -1,0 +1,5 @@
+Desarrollar un sistema automatizado sin intervención manual, sin necesidad de bbdd, que genere ejercicios de JavaScript de alta calidad pedagógica.
+para ello el sistema leera, tu temario de pdfs que tengas en git hub, utilizara ia para generar ejercicios relacionados con los pdfs y publicara automáticamente todo el material en un repo de GitHub
+
+además mandara un correo y un bot de discord informando a los alumnos con los ejercicios generados.
+Dicho flujo se realizara todos los lunes a las 9 de la mañana

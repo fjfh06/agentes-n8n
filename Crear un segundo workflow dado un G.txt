@@ -1,0 +1,2 @@
+Crear un segundo workflow dado un Google sheets llamado data-n8n-ejemplo-01 con los campos nombre, correo, tipo y enviado. Se pide que cada minuto, el agente IA n8n acceda a la hoja de cálculos y a todas aquellas row o filas cuyo valor en el campo sea no le envie un correo de bienvenida. Una vez enviado modificara automáticamente la hoja de calculo, cambiando el valor de la columna enviado de no a si.
+Si una fila tiene el valor en el campo enviado si no se le envia un correo electrónico de bienvenida

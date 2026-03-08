@@ -1,0 +1,142 @@
+fjavi@fjavi MINGW64 ~
+$ cd Documents/
+
+fjavi@fjavi MINGW64 ~/Documents
+$ mkdir agentes-n8n
+
+fjavi@fjavi MINGW64 ~/Documents
+$ ls
+ agentes_ia_2526/              Curso_25_26_m/      extensiones/             'Plantillas personalizadas de Office'/
+ agentes-n8n/                  CursoReact2526/    'Grabaciones de sonido'/   PowerShell/
+ AutoHotkey/                   Default.rdp        'Mi música'@               PowerToys/
+'Biblioteca de calibre'/       desktop.ini        'Mis imágenes'@            PRINCE/
+'Blocs de notas de OneNote'/   DWES/              'Mis vídeos'@             'Rockstar Games'/
+ Consola1.msc                 'Electronic Arts'/   NetBeansProjects/         Samsung/
+
+fjavi@fjavi MINGW64 ~/Documents
+$ cd agentes-n8n/
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n
+$ git init
+Initialized empty Git repository in C:/Users/fjavi/Documents/agentes-n8n/.git/
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ echo "# Repositorio Agentes IA con N8N" > readme.md
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ git add . && git commit -m "Create Readme.md"
+warning: in the working copy of 'readme.md', LF will be replaced by CRLF the next time Git touches it
+[main (root-commit) b404dfe] Create Readme.md
+ 1 file changed, 1 insertion(+)
+ create mode 100644 readme.md
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ gh --version
+gh version 2.83.2 (2025-12-10)
+https://github.com/cli/cli/releases/tag/v2.83.2
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ gh repo create agentes-n8n --public --source=. --remote=origin --push
+✓ Created repository fjfh06/agentes-n8n on github.com
+  https://github.com/fjfh06/agentes-n8n
+✓ Added remote git@github.com:fjfh06/agentes-n8n.git
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 248 bytes | 248.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To github.com:fjfh06/agentes-n8n.git
+ * [new branch]      HEAD -> main
+branch 'main' set up to track 'origin/main'.
+✓ Pushed commits to git@github.com:fjfh06/agentes-n8n.git
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ git remote -v
+origin  git@github.com:fjfh06/agentes-n8n.git (fetch)
+origin  git@github.com:fjfh06/agentes-n8n.git (push)
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ docker --version
+Docker version 28.5.1, build e180ab8
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ docker ps -a
+CONTAINER ID   IMAGE                                                                                                       COMMAND                  CREATED        STATUS                      PORTS                  NAMES
+615cf5ad9ef3   fjfh06/mi_web:1.0                                                                                           "nginx -g 'daemon of…"   7 weeks ago    Exited (255) 7 weeks ago    0.0.0.0:8080->80/tcp   contenedor_web
+c4024d53ac12   ollama-backend-frontend-frontend                                                                            "/docker-entrypoint.…"   8 weeks ago    Created                                            frontend
+c8816467d2ec   vsc-galeria-dom-interactiva-06cbe5fc988f6e26f87fc6697e2c5ee44547a350c8c74231517843b38b4e2173                "/bin/sh -c 'echo Co…"   2 months ago   Exited (0) 7 weeks ago                             hardcore_dhawan
+d440aee053c1   ollama/ollama                                                                                               "/bin/ollama serve"      2 months ago   Exited (0) 8 weeks ago                             ollama
+d214aa88663f   nginx                                                                                                       "/docker-entrypoint.…"   2 months ago   Exited (0) 2 months ago                            web_personal
+8e13a88201c0   ubuntu                                                                                                      "/bin/bash"              2 months ago   Exited (255) 7 weeks ago                           srv_ubuntu
+7a4ec1d90d22   nginx                                                                                                       "/docker-entrypoint.…"   2 months ago   Exited (137) 2 months ago                          srv_pru2
+4dd36f8ec0c0   nginx                                                                                                       "/docker-entrypoint.…"   2 months ago   Exited (0) 2 months ago                            srv_pru
+3e72a5303d5d   ubuntu                                                                                                      "bash"                   2 months ago   Exited (0) 2 months ago                            magical_meitner
+28b7a6a05235   ubuntu                                                                                                      "echo 'Hola Mundo'"      2 months ago   Exited (0) 2 months ago                            confident_pasteur
+1a9ca8e490c5   python:3                                                                                                    "python -m http.serv…"   2 months ago   Exited (137) 2 months ago                          python_server_http
+f5501cbd3375   vsc-ejercicios-repaso-javascript-63b67a82e490f3e160888a151f06dcdbb1ee70ffebe4ac4b16470a521c4d8432           "/bin/sh -c 'echo Co…"   2 months ago   Exited (0) 2 months ago                            great_jackson
+a7a76be75eaa   vsc-devcontainer-javascript-vite-taiwind-f768d3d9930427df52b6c31f0d5341aa75ef8c7d8535531db0027e45338db0ee   "/bin/sh -c 'echo Co…"   2 months ago   Exited (0) 2 months ago                            affectionate_leakey
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ ^C
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ ^C
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ docker network create red-n8n-ollama
+6975619afaff88f5036771064cad2f9ba40c63b2c2a143dbfe10b293f774aecd
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ echo "docker run -d -v ollama:/root/.ollama -name ollama-n8n --network red-n8n-ollama -p 11500:11434 --gpus=all ollama
+/ollama:latest" > install-ollama.md
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ ls
+install-ollama.md  readme.md
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ cat install-ollama.md
+docker run -d -v ollama:/root/.ollama -name ollama-n8n --network red-n8n-ollama -p 11500:11434 --gpus=all ollama/ollama:latest
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ docker run -d -v n8n_data:/home/node/.n8n --name n8n --network red-n8n-ollama -p 5678:5678 n8nio/n8n
+Unable to find image 'n8nio/n8n:latest' locally
+latest: Pulling from n8nio/n8n
+b1b3bffb2694: Pull complete
+2e4fafc9c573: Pull complete
+29f6b4daa63d: Pull complete
+6826d4624d08: Pull complete
+4745102427f1: Pull complete
+4f4fb700ef54: Pull complete
+b9b992ae23a0: Pull complete
+9fc0bdb9d8ca: Pull complete
+0fe16ba7d514: Pull complete
+7847cc1dd778: Pull complete
+Digest: sha256:be4e8625e534b42edf8a987eb11040991cd26c1a50feb9c208da8dbb2e904a69
+Status: Downloaded newer image for n8nio/n8n:latest
+cd9089267679731742df663866efab90ff95ba736075277d304638d9fb2f0365
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ docker ps
+CONTAINER ID   IMAGE       COMMAND                  CREATED          STATUS          PORTS                                         NAMES
+cd9089267679   n8nio/n8n   "tini -- /docker-ent…"   26 seconds ago   Up 24 seconds   0.0.0.0:5678->5678/tcp, [::]:5678->5678/tcp   n8n
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ echo "docker run -d -v n8n_data:/home/node/.n8n --name n8n --network red-n8n-ollama -p 5678:5678 n8nio/n8n" >> install-ollama.md
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ mv install-ollama.md install-ollama-n8n.md
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ ls
+install-ollama-n8n.md  readme.md
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ cat install-ollama-n8n.md
+docker run -d -v ollama:/root/.ollama -name ollama-n8n --network red-n8n-ollama -p 11500:11434 --gpus=all ollama/ollama:latest
+docker run -d -v n8n_data:/home/node/.n8n --name n8n --network red-n8n-ollama -p 5678:5678 n8nio/n8n
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$ nano install-ollama-n8n.md
+
+fjavi@fjavi MINGW64 ~/Documents/agentes-n8n (main)
+$
