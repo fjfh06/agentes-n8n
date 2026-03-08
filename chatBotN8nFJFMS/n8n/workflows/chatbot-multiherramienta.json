@@ -1,0 +1,422 @@
+{
+  "name": "Chatbot-Hito3",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ]
+      },
+      "type": "n8n-nodes-telegram-polling.telegramPollingTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "fd7c4655-4c53-457e-939e-992ea28f783a",
+      "name": "Telegram Trigger",
+      "credentials": {
+        "telegramApi": {
+          "id": "3c5WXScRQgwMqbL6",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "c1f5db69-6e86-4983-b644-ba151ffcbf1a",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "mistral:instruct",
+          "mode": "list",
+          "cachedResultName": "mistral:instruct"
+        },
+        "messages": {
+          "values": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.ollama",
+      "typeVersion": 1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "c2872f6f-b53a-4efc-817a-26a61d2c7f8c",
+      "name": "Message a model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "exI4QOyuF9rRXYPw",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "expression"
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        768,
+        0
+      ],
+      "id": "9a29895a-75a5-436d-989a-2ad6b3599b25",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "mistral:instruct",
+          "mode": "list",
+          "cachedResultName": "mistral:instruct"
+        },
+        "messages": {
+          "values": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.ollama",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        16
+      ],
+      "id": "55f96914-5c0c-478a-9723-0e87c87546d4",
+      "name": "Respuesta con API",
+      "credentials": {
+        "ollamaApi": {
+          "id": "exI4QOyuF9rRXYPw",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1600,
+        16
+      ],
+      "id": "505f5133-060e-4115-9e78-5c649f47eae8",
+      "name": "Trimear respuesta"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1808,
+        16
+      ],
+      "id": "c54dec32-9541-4919-a1c6-786b42690d48",
+      "name": "Insert rows in a table",
+      "credentials": {
+        "postgres": {
+          "id": "TM7NLDUriIuAr3Np",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2016,
+        16
+      ],
+      "id": "d035d44a-09c3-4462-ab04-c3b66111faf6",
+      "name": "Select rows from a table",
+      "credentials": {
+        "postgres": {
+          "id": "TM7NLDUriIuAr3Np",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2224,
+        16
+      ],
+      "id": "6bc851a4-ae3d-4305-bb8a-c7afb8864547",
+      "name": "Send a text message",
+      "webhookId": "d5cd6dd0-c7bc-409a-939d-64b5955c2350",
+      "credentials": {
+        "telegramApi": {
+          "id": "3c5WXScRQgwMqbL6",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        976,
+        -256
+      ],
+      "id": "cd01dc79-9402-42aa-b1f5-ab8b72098af1",
+      "name": "MeteoAPI"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        976,
+        -96
+      ],
+      "id": "6fda0551-800c-4207-b2f2-94574ccff3a2",
+      "name": "REST Countries"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        976,
+        64
+      ],
+      "id": "8b356481-bd1c-44e0-86c6-aa99772fb4f7",
+      "name": "Wikipedia API"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        976,
+        224
+      ],
+      "id": "3c0b866d-68e4-4c64-adfc-ee58f31f118c",
+      "name": "Joke API"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "MeteoAPI",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "REST Countries",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wikipedia API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Joke API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respuesta con API": {
+      "main": [
+        [
+          {
+            "node": "Trimear respuesta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trimear respuesta": {
+      "main": [
+        [
+          {
+            "node": "Insert rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert rows in a table": {
+      "main": [
+        [
+          {
+            "node": "Select rows from a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select rows from a table": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MeteoAPI": {
+      "main": [
+        [
+          {
+            "node": "Respuesta con API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "REST Countries": {
+      "main": [
+        [
+          {
+            "node": "Respuesta con API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia API": {
+      "main": [
+        [
+          {
+            "node": "Respuesta con API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Joke API": {
+      "main": [
+        [
+          {
+            "node": "Respuesta con API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "9aa3ab10-e14b-45e5-8086-cf45f2b49b8b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "09d36b3ba65a928ffea00308fd058e780deb31751be4d1199ff586bdd105f6cc"
+  },
+  "id": "Bad-kIUqO91EZ0LiiQT-3",
+  "tags": []
+}
