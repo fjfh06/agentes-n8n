@@ -1,5 +1,5 @@
 {
-  "name": "Chatbot-Hito3",
+  "name": "Chatbot-Multiherramienta",
   "nodes": [
     {
       "parameters": {
@@ -10,7 +10,7 @@
       "type": "n8n-nodes-telegram-polling.telegramPollingTrigger",
       "typeVersion": 1,
       "position": [
-        0,
+        -256,
         0
       ],
       "id": "fd7c4655-4c53-457e-939e-992ea28f783a",
@@ -29,7 +29,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        208,
+        -48,
         0
       ],
       "id": "c1f5db69-6e86-4983-b644-ba151ffcbf1a",
@@ -53,7 +53,7 @@
       "type": "@n8n/n8n-nodes-langchain.ollama",
       "typeVersion": 1,
       "position": [
-        416,
+        144,
         0
       ],
       "id": "c2872f6f-b53a-4efc-817a-26a61d2c7f8c",
@@ -72,8 +72,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        768,
-        0
+        496,
+        -32
       ],
       "id": "9a29895a-75a5-436d-989a-2ad6b3599b25",
       "name": "Switch"
@@ -200,6 +200,7 @@
     },
     {
       "parameters": {
+        "url": "=https://api.open-meteo.com/v1/forecast?latitude={{}}&longitude={{}}&daily=precipitation_sum,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -213,25 +214,27 @@
     },
     {
       "parameters": {
+        "url": "=https://restcountries.com/v3.1/name/{{}}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        976,
-        -96
+        880,
+        -80
       ],
       "id": "6fda0551-800c-4207-b2f2-94574ccff3a2",
       "name": "REST Countries"
     },
     {
       "parameters": {
+        "url": "=https://es.wikipedia.org/api/rest_v1/page/summary/{{ }}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        976,
+        896,
         64
       ],
       "id": "8b356481-bd1c-44e0-86c6-aa99772fb4f7",
@@ -239,16 +242,31 @@
     },
     {
       "parameters": {
+        "url": "https://v2.jokeapi.dev/joke/Any?lang=es",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        976,
+        896,
         224
       ],
       "id": "3c0b866d-68e4-4c64-adfc-ee58f31f118c",
       "name": "Joke API"
+    },
+    {
+      "parameters": {
+        "url": "=https://geocoding-api.open-meteo.com/v1/search?name={{}}&count=1&language=es&format=json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        752,
+        -256
+      ],
+      "id": "b9d24bd2-7021-48ba-9e88-e1d0ddeda810",
+      "name": "HTTP Request"
     }
   ],
   "pinData": {},
@@ -290,7 +308,7 @@
       "main": [
         [
           {
-            "node": "MeteoAPI",
+            "node": "HTTP Request",
             "type": "main",
             "index": 0
           }
@@ -405,6 +423,17 @@
           }
         ]
       ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "MeteoAPI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -412,7 +441,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "9aa3ab10-e14b-45e5-8086-cf45f2b49b8b",
+  "versionId": "8ed72cc9-0295-4efd-a7b4-8011d53ab0d0",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "09d36b3ba65a928ffea00308fd058e780deb31751be4d1199ff586bdd105f6cc"
