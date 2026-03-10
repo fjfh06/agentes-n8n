@@ -67,14 +67,14 @@
       "parameters": {
         "modelId": {
           "__rl": true,
-          "value": "qwen2.5:7b-instruct",
+          "value": "mistral:instruct",
           "mode": "list",
-          "cachedResultName": "qwen2.5:7b-instruct"
+          "cachedResultName": "mistral:instruct"
         },
         "messages": {
           "values": [
             {
-              "content": "={\n  \"prompt\": \"Actúa como un clasificador de intención y extractor de entidades. Tu tarea es analizar el mensaje del usuario: {{ $json.message.text }}. Las categorías permitidas son exclusivamente: 'Meteorologia' (preguntas sobre clima, tiempo, temperatura, ej: 'tiempo purullena'), 'Geografia' (mapas, capitales, países), 'Wikipedia' (información, qué es, quién es) y 'Chistes' (humor). Responde ÚNICAMENTE con un objeto JSON válido (sin bloques de código markdown ni texto adicional) siguiendo estas reglas para las claves: 1. \\\"categoria\\\": una de las 4 categorías permitidas. 2. \\\"mensaje\\\": el mensaje exacto del usuario. 3. \\\"palabra\\\": si la categoría es 'Meteorologia', extrae SOLO la ciudad o pueblo (la palabra que acompaña a 'tiempo' o 'clima'); si es 'Geografia', extrae el país o región; si es 'Wikipedia', extrae la palabra o frase a buscar reemplazando los espacios por '%20'; si es 'Chistes', devuelve un string vacío \\\"\\\". Estructura esperada: { \\\"categoria\\\": \\\"...\\\", \\\"mensaje\\\": \\\"...\\\", \\\"palabra\\\": \\\"...\\\" }\",\n  \"stream\": false,\n  \"format\": \"json\"\n}"
+              "content": "={\n  \"prompt\": \"Actúa como un clasificador de intención y extractor de entidades. Tu tarea es analizar el mensaje del usuario: {{ $json.message.text }}. Las categorías permitidas son exclusivamente: 'Meteorologia' (preguntas sobre clima, tiempo, temperatura, ej: 'tiempo purullena'), 'Geografia' (mapas, capitales, países), 'Wikipedia' (información, qué es, quién es), 'Chistes' (humor) y 'Desconocido' (texto sin sentido, letras al azar, teclado pulsado por error o temas no soportados). Responde ÚNICAMENTE con un objeto JSON válido (sin bloques de código markdown ni texto adicional) siguiendo estas reglas para las claves: 1. \\\"categoria\\\": una de las 5 categorías permitidas. 2. \\\"mensaje\\\": el mensaje exacto del usuario. 3. \\\"palabra\\\": si la categoría es 'Meteorologia', extrae SOLO la ciudad o pueblo (la palabra que acompaña a 'tiempo' o 'clima'); si es 'Geografia', extrae el país o región; si es 'Wikipedia', extrae la palabra o frase a buscar reemplazando los espacios por '%20'; si es 'Chistes' o 'Desconocido', devuelve \\\"\\\", devuelve un string vacío \\\"\\\". Estructura esperada: { \\\"categoria\\\": \\\"...\\\", \\\"mensaje\\\": \\\"...\\\", \\\"palabra\\\": \\\"...\\\" }\",\n\n  \"stream\": false,\n\n  \"format\": \"json\"\n\n}"
             }
           ]
         },
@@ -240,9 +240,9 @@
       "parameters": {
         "modelId": {
           "__rl": true,
-          "value": "qwen2.5:7b-instruct",
+          "value": "mistral:instruct",
           "mode": "list",
-          "cachedResultName": "qwen2.5:7b-instruct"
+          "cachedResultName": "mistral:instruct"
         },
         "messages": {
           "values": [
@@ -611,7 +611,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "2e8a1cf1-0bfe-4014-97b2-fc1b4eeeaea4",
+  "versionId": "ae7b24a1-dd67-44fd-b6a4-5b7ccdc1738f",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "13ea2cd5711a79a2d4fc85e12de3d1f55087a07bc29f1cb286d898791c8ac2ed"
