@@ -1,0 +1,93 @@
+# ============================================================
+# Proyecto seleccionado: Chatbot con n8n, Ollama y PostgreSQL usando APIs
+# Servicios:
+#   - n8n: Motor de automatización (con persistencia de datos)
+#   - PostgreSQL: Base de datos principal para el chatbot
+#   - pgAdmin: Interfaz web visual para la administración de base de datos
+# Red:
+#   - red-n8n-ollama (Red configurada con Ollama)
+# ============================================================
+
+services:
+  # ------------------------------------------------------------
+  # Servicio: n8n
+  # ------------------------------------------------------------
+
+  # n8n:
+  #   image: n8nio/n8n:latest
+  #   container_name: n8n_chatbot
+  #   restart: unless-stopped
+  #   ports:
+  #     - "5678:5678"
+  #   environment:
+  #     - N8N_USER_FOLDER=/home/node/.n8n
+  #     - N8N_ELASTICBEANSTALK_SSL=true
+  #     - N8N_DIAGNOSTICS_ENABLED=false
+  #     - N8N_VERSION_NOTIFICATIONS_ENABLED=false
+  #     - N8N_TELEMETRY_ENABLED=false
+  #   volumes:
+  #     - n8n_data:/home/node/.n8n
+  #   networks:
+  #     - red-n8n-ollama
+
+  # ------------------------------------------------------------
+  # PostgreSQL
+  # Base de datos para almacenar los mensajes que tendremos con la IA
+  # ------------------------------------------------------------
+  postgres:
+    image: postgres:16
+    container_name: postgres_chatbot
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: chatbot_db
+      POSTGRES_USER: chatbot_admin
+      POSTGRES_PASSWORD: "chatbot"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - red-n8n-ollama
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U chatbot_admin -d chatbot_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # ------------------------------------------------------------
+  # pgAdmin
+  # Interfaz web visual para administrar la base de datos
+  # ------------------------------------------------------------
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin_chatbot
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "fjavier.n8n@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "Curso-n8n!"
+      PGADMIN_CONFIG_MAX_LOGIN_ATTEMPTS: 50
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - red-n8n-ollama
+    depends_on:
+      - postgres
+
+# ------------------------------------------------------------
+# Definición de redes
+# ------------------------------------------------------------
+networks:
+  red-n8n-ollama:
+    external: true
+
+# ------------------------------------------------------------
+# Definición de volúmenes persistentes
+# ------------------------------------------------------------
+volumes:
+  n8n_data:
+    external: true
+
+  # Volúmenes locales para la base de datos del chatbot
+  postgres_data:
+  pgadmin_data:

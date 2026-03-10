@@ -10,14 +10,14 @@
       "type": "n8n-nodes-telegram-polling.telegramPollingTrigger",
       "typeVersion": 1,
       "position": [
-        -1008,
-        256
+        1392,
+        704
       ],
-      "id": "854943bd-4064-458e-989f-bd10718da419",
+      "id": "ab1f380a-d459-445d-859a-bcfdb30118fa",
       "name": "Telegram Trigger",
       "credentials": {
         "telegramApi": {
-          "id": "0O8xXEneY1c9SqqK",
+          "id": "3c5WXScRQgwMqbL6",
           "name": "Telegram account"
         }
       }
@@ -57,10 +57,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -800,
-        256
+        1600,
+        704
       ],
-      "id": "61dd31d0-9282-41db-bf9c-f72a41f0563f",
+      "id": "cd30b65a-9762-497b-84eb-f0d39aa729f1",
       "name": "Edit Fields"
     },
     {
@@ -83,14 +83,14 @@
       "type": "@n8n/n8n-nodes-langchain.ollama",
       "typeVersion": 1,
       "position": [
-        -608,
-        256
+        1792,
+        704
       ],
-      "id": "a67097cf-8dd0-4165-8243-8987f5d72208",
+      "id": "05cb00b0-ea26-40b7-8edd-e05ee2fdf05f",
       "name": "Message a model",
       "credentials": {
         "ollamaApi": {
-          "id": "hHihuCdWTFOOTj0n",
+          "id": "exI4QOyuF9rRXYPw",
           "name": "Ollama account"
         }
       }
@@ -230,10 +230,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        -256,
-        224
+        2144,
+        672
       ],
-      "id": "0ba4ab27-f94d-496c-88d6-9428ecfb2af8",
+      "id": "3e07b59a-3677-4979-9fb2-5ffbbd29e81a",
       "name": "Switch"
     },
     {
@@ -256,14 +256,14 @@
       "type": "@n8n/n8n-nodes-langchain.ollama",
       "typeVersion": 1,
       "position": [
-        496,
-        272
+        2896,
+        720
       ],
-      "id": "5e702294-d68d-4e37-baab-8b6519aa0b6b",
+      "id": "916b7ca9-8b1f-436e-abe1-ef5b5e1a6bbe",
       "name": "Respuesta con API",
       "credentials": {
         "ollamaApi": {
-          "id": "hHihuCdWTFOOTj0n",
+          "id": "exI4QOyuF9rRXYPw",
           "name": "Ollama account"
         }
       }
@@ -275,10 +275,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        848,
-        272
+        3248,
+        720
       ],
-      "id": "eee9d439-aa75-41b5-8c41-ac005d17b89f",
+      "id": "1a37064e-7812-479f-9d98-a85827c3ff80",
       "name": "Trimear respuesta"
     },
     {
@@ -290,21 +290,95 @@
         },
         "table": {
           "__rl": true,
+          "value": "chatbot_db",
           "mode": "list",
-          "value": ""
-        }
+          "cachedResultName": "chatbot_db"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chatid": "={{ $json.chat_id }}",
+            "username": "={{ $json.username }}",
+            "mensajeuser": "={{ $json.mensajeUser }}",
+            "mensajeia": "={{ $json.mensaje }}",
+            "fecha": "={{ $json.fecha }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "chatid",
+              "displayName": "chatid",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mensajeuser",
+              "displayName": "mensajeuser",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mensajeia",
+              "displayName": "mensajeia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1056,
-        272
+        3456,
+        720
       ],
-      "id": "05b9d6fa-b890-425c-964d-23ea350c81a6",
+      "id": "c6e517e3-7354-4771-9268-0e5f9e5ca7d3",
       "name": "Insert rows in a table",
       "credentials": {
         "postgres": {
-          "id": "9U79eQTb6wfjkMrq",
+          "id": "TM7NLDUriIuAr3Np",
           "name": "Postgres account"
         }
       }
@@ -319,41 +393,53 @@
         },
         "table": {
           "__rl": true,
+          "value": "chatbot_db",
           "mode": "list",
-          "value": ""
-        }
+          "cachedResultName": "chatbot_db"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1264,
-        272
+        3664,
+        720
       ],
-      "id": "b3fecbe0-07b7-4919-a075-fd55526e9c47",
+      "id": "733f8e18-ad12-4f6a-b307-a2079a8390b6",
       "name": "Select rows from a table",
       "credentials": {
         "postgres": {
-          "id": "9U79eQTb6wfjkMrq",
+          "id": "TM7NLDUriIuAr3Np",
           "name": "Postgres account"
         }
       }
     },
     {
       "parameters": {
+        "chatId": "={{ $json.chatid }}",
+        "text": "={{ $json.mensajeia }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1472,
-        272
+        3872,
+        720
       ],
-      "id": "2ce3978e-9ddc-418e-a019-bcf6e9bc06a7",
+      "id": "b0a1a630-1fa7-44bc-8e8b-6d902863e4cf",
       "name": "Send a text message",
       "webhookId": "d5cd6dd0-c7bc-409a-939d-64b5955c2350",
       "credentials": {
         "telegramApi": {
-          "id": "0O8xXEneY1c9SqqK",
+          "id": "3c5WXScRQgwMqbL6",
           "name": "Telegram account"
         }
       }
@@ -366,10 +452,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        224,
-        0
+        2624,
+        448
       ],
-      "id": "b650ced7-8a30-47c6-aace-ae47394c4b32",
+      "id": "33b87896-6168-43ce-b2b3-86f6bcc5f6dd",
       "name": "MeteoAPI"
     },
     {
@@ -380,10 +466,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        128,
-        176
+        2528,
+        624
       ],
-      "id": "cff1310f-463d-476c-8282-9abf278131c9",
+      "id": "4dca7c0b-c909-4741-85ec-d48a86318b42",
       "name": "REST Countries"
     },
     {
@@ -403,10 +489,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        144,
-        320
+        2544,
+        768
       ],
-      "id": "93217ef5-df94-4a32-97fb-04d4c79a75bc",
+      "id": "2ec36260-a24b-438b-af0e-568f6f933bc8",
       "name": "Wikipedia API"
     },
     {
@@ -417,10 +503,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        144,
-        480
+        2544,
+        928
       ],
-      "id": "c7a78e22-b6be-4618-a214-6c091fd6dc5d",
+      "id": "e8942f3f-2746-4cb8-b956-28c2c1f63617",
       "name": "Joke API"
     },
     {
@@ -431,10 +517,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        0,
-        0
+        2400,
+        448
       ],
-      "id": "c9476e0d-5d28-4f41-98e1-292832eb8bc9",
+      "id": "9b8fe862-f590-4910-b3c6-b1e75ed71a3c",
       "name": "HTTP Request"
     }
   ],
@@ -523,11 +609,6 @@
         ]
       ]
     },
-    "Trimear respuesta": {
-      "main": [
-        []
-      ]
-    },
     "Insert rows in a table": {
       "main": [
         [
@@ -604,6 +685,17 @@
           }
         ]
       ]
+    },
+    "Trimear respuesta": {
+      "main": [
+        [
+          {
+            "node": "Insert rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -611,11 +703,11 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "ae7b24a1-dd67-44fd-b6a4-5b7ccdc1738f",
+  "versionId": "0570fea7-fe45-4010-b7f7-692f8654bf29",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "13ea2cd5711a79a2d4fc85e12de3d1f55087a07bc29f1cb286d898791c8ac2ed"
+    "instanceId": "09d36b3ba65a928ffea00308fd058e780deb31751be4d1199ff586bdd105f6cc"
   },
-  "id": "4VsCeQT1HB-xh1LIiLdIC",
+  "id": "Bad-kIUqO91EZ0LiiQT-3",
   "tags": []
 }
