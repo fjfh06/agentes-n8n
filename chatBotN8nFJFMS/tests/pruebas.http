@@ -1,0 +1,46 @@
+### Test Geocoding API (Open-Meteo)
+# Se usa para buscar las coordenadas de una ciudad antes de pedir el clima
+GET https://geocoding-api.open-meteo.com/v1/search?name=Madrid&count=1&language=es&format=json
+Accept: application/json
+
+---
+
+### Test Open-Meteo API
+# Se usa para obtener el clima usando las coordenadas obtenidas en el paso anterior (Ej: Madrid)
+GET https://api.open-meteo.com/v1/forecast?latitude=40.4165&longitude=-3.70256&daily=precipitation_sum,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1
+Accept: application/json
+
+---
+
+### Test REST Countries API
+# Se usa para obtener datos geográficos de un país (Ej: España)
+GET https://restcountries.com/v3.1/name/España
+Accept: application/json
+
+---
+
+### Test Wikipedia API
+# Se usa para obtener el resumen de un tema o persona (Ej: Inteligencia Artificial)
+GET https://es.wikipedia.org/api/rest_v1/page/summary/Inteligencia_artificial
+User-Agent: BotProyecto/1.0
+Accept: application/json
+
+---
+
+### Test Joke API
+# Se usa para obtener un chiste aleatorio en español
+GET https://v2.jokeapi.dev/joke/Any?lang=es
+Accept: application/json
+
+---
+
+### Test Ollama API (Local)
+# Esto comprobará si Ollama está funcionando y respondiendo correctamente en tu equipo (asegúrate de que el puerto sea el correcto)
+POST https://jarvis.ieshlanz.es/api/generate
+Content-Type: application/json
+
+{
+  "model": "mistral:instruct",
+  "prompt": "Hola, genera un chiste corto de programadores.",
+  "stream": false
+}
