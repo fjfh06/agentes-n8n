@@ -10,14 +10,14 @@
       "type": "n8n-nodes-telegram-polling.telegramPollingTrigger",
       "typeVersion": 1,
       "position": [
-        1392,
-        704
+        -528,
+        768
       ],
-      "id": "ab1f380a-d459-445d-859a-bcfdb30118fa",
+      "id": "b060e916-29d1-492b-b493-ab402ad35f35",
       "name": "Telegram Trigger",
       "credentials": {
         "telegramApi": {
-          "id": "3c5WXScRQgwMqbL6",
+          "id": "0O8xXEneY1c9SqqK",
           "name": "Telegram account"
         }
       }
@@ -57,10 +57,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1600,
-        704
+        -320,
+        768
       ],
-      "id": "cd30b65a-9762-497b-84eb-f0d39aa729f1",
+      "id": "16528164-daf5-4806-977e-8f4a40db5e81",
       "name": "Edit Fields"
     },
     {
@@ -83,14 +83,14 @@
       "type": "@n8n/n8n-nodes-langchain.ollama",
       "typeVersion": 1,
       "position": [
-        1792,
-        704
+        -128,
+        768
       ],
-      "id": "05cb00b0-ea26-40b7-8edd-e05ee2fdf05f",
+      "id": "fd0b1a84-ae96-4aaf-8986-0340b0b37fce",
       "name": "Message a model",
       "credentials": {
         "ollamaApi": {
-          "id": "exI4QOyuF9rRXYPw",
+          "id": "hHihuCdWTFOOTj0n",
           "name": "Ollama account"
         }
       }
@@ -230,10 +230,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        2144,
-        672
+        224,
+        736
       ],
-      "id": "3e07b59a-3677-4979-9fb2-5ffbbd29e81a",
+      "id": "479b55a8-7d54-4348-b0e4-1e741f0a3b42",
       "name": "Switch"
     },
     {
@@ -247,7 +247,7 @@
         "messages": {
           "values": [
             {
-              "content": "={\n  \"prompt\": \"Actúa como un asistente virtual amable y conversacional de Telegram. Tu único objetivo es responder a la pregunta original del usuario utilizando la información en bruto (JSON) obtenida de nuestras bases de datos.\n\nINFORMACIÓN DE LA CONSULTA:\n- Pregunta del usuario: {{ $('Message a model').item.json.content.parseJson().mensaje }}\n- Categoría detectada: {{ $('Message a model').item.json.content.parseJson().categoria }}\n\nDATOS OBTENIDOS DE LA BASE DE DATOS (API):\n{{ JSON.stringify($json) }}\n\nINSTRUCCIONES OBLIGATORIAS:\n1. Analiza los \"DATOS OBTENIDOS\" y extrae la respuesta a la \"Pregunta del usuario\".\n2. Redacta una respuesta natural, clara y directa en español. \n3. Adapta tu tono a la categoría:\n   - Si es 'Wikipedia': Resume la información principal en 1 o 2 párrafos fáciles de leer.\n   - Si es 'Geografia': Responde con los datos solicitados de forma clara.\n   - Si es 'Meteorologia': Informa sobre el clima actual de forma útil y cercana.\n   - Si es 'Chistes': Cuenta el chiste de forma divertida (si viene en inglés en los datos, tradúcelo al español manteniendo la hilaridad (con gracia)).\n4. REGLA DE ORO: NUNCA menciones que estás leyendo un JSON, una API o una base de datos. Responde como si tú mismo supieras la información.\n5. Formato: Devuelve ÚNICAMENTE el texto final que se enviará por Telegram. NO devuelvas un objeto JSON, NO uses comillas invertidas (```), solo texto plano o con formato Markdown básico de Telegram (negritas con **).\",\n  \"stream\": false,\n  \"format\": \"json\"\n}"
+              "content": "={\n  \"prompt\": \"Actúa como un asistente virtual que solo habla en español amable y conversacional de Telegram. Tu único objetivo es responder a la pregunta original del usuario utilizando la información en bruto (JSON) obtenida de nuestras bases de datos.\n\nINFORMACIÓN DE LA CONSULTA:\n- Pregunta del usuario: {{ $('Message a model').item.json.content.parseJson().mensaje }}\n- Categoría detectada: {{ $('Message a model').item.json.content.parseJson().categoria }}\n\nDATOS OBTENIDOS DE LA BASE DE DATOS (API):\n{{ JSON.stringify($json) }}\n\nINSTRUCCIONES OBLIGATORIAS:\n1. Analiza los \"DATOS OBTENIDOS\" y extrae la respuesta a la \"Pregunta del usuario\".\n2. Redacta una respuesta natural, clara y directa en español. \n3. Adapta tu tono a la categoría:\n   - Si es 'Wikipedia': Resume la información principal en 1 o 2 párrafos fáciles de leer.\n   - Si es 'Geografia': Responde con los datos solicitados de forma clara.\n   - Si es 'Meteorologia': Informa sobre el clima actual de forma útil y cercana.\n   - Si es 'Chistes': Cuenta el chiste de forma divertida (si viene en inglés en los datos, tradúcelo al español manteniendo la hilaridad (con gracia)).\n4. REGLA DE ORO: NUNCA menciones que estás leyendo un JSON, una API o una base de datos. Responde como si tú mismo supieras la información.\n5. Formato: Devuelve ÚNICAMENTE el texto final que se enviará por Telegram. NO devuelvas un objeto JSON, NO uses comillas invertidas (```), solo texto plano o con formato Markdown básico de Telegram (negritas con **).\",\n  \"stream\": false,\n  \"format\": \"json\"\n}"
             }
           ]
         },
@@ -256,14 +256,14 @@
       "type": "@n8n/n8n-nodes-langchain.ollama",
       "typeVersion": 1,
       "position": [
-        2896,
-        720
+        976,
+        784
       ],
-      "id": "916b7ca9-8b1f-436e-abe1-ef5b5e1a6bbe",
+      "id": "f16fc6a2-39a1-47ed-86e2-cb9c5965ecf2",
       "name": "Respuesta con API",
       "credentials": {
         "ollamaApi": {
-          "id": "exI4QOyuF9rRXYPw",
+          "id": "hHihuCdWTFOOTj0n",
           "name": "Ollama account"
         }
       }
@@ -275,10 +275,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3248,
-        720
+        1328,
+        784
       ],
-      "id": "1a37064e-7812-479f-9d98-a85827c3ff80",
+      "id": "7ad21019-18b3-4a18-8b15-d302c149f5cd",
       "name": "Trimear respuesta"
     },
     {
@@ -371,14 +371,14 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        3456,
-        720
+        1536,
+        784
       ],
-      "id": "c6e517e3-7354-4771-9268-0e5f9e5ca7d3",
+      "id": "90295808-32c2-4b55-929a-c3c4d1444fdd",
       "name": "Insert rows in a table",
       "credentials": {
         "postgres": {
-          "id": "TM7NLDUriIuAr3Np",
+          "id": "9U79eQTb6wfjkMrq",
           "name": "Postgres account"
         }
       }
@@ -410,14 +410,14 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        3664,
-        720
+        1744,
+        784
       ],
-      "id": "733f8e18-ad12-4f6a-b307-a2079a8390b6",
+      "id": "6c2e0b25-072d-4c90-8c28-37620c2ddb36",
       "name": "Select rows from a table",
       "credentials": {
         "postgres": {
-          "id": "TM7NLDUriIuAr3Np",
+          "id": "9U79eQTb6wfjkMrq",
           "name": "Postgres account"
         }
       }
@@ -431,15 +431,15 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        3872,
-        720
+        1952,
+        784
       ],
-      "id": "b0a1a630-1fa7-44bc-8e8b-6d902863e4cf",
+      "id": "c7c7ada5-a7c6-434e-a622-4aeee809a88f",
       "name": "Send a text message",
       "webhookId": "d5cd6dd0-c7bc-409a-939d-64b5955c2350",
       "credentials": {
         "telegramApi": {
-          "id": "3c5WXScRQgwMqbL6",
+          "id": "0O8xXEneY1c9SqqK",
           "name": "Telegram account"
         }
       }
@@ -452,10 +452,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        2624,
-        448
+        704,
+        512
       ],
-      "id": "33b87896-6168-43ce-b2b3-86f6bcc5f6dd",
+      "id": "824ddf1b-bf83-44ce-88c1-763adbe8e5a6",
       "name": "MeteoAPI"
     },
     {
@@ -466,10 +466,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        2528,
-        624
+        608,
+        688
       ],
-      "id": "4dca7c0b-c909-4741-85ec-d48a86318b42",
+      "id": "2a5e2b62-010d-473f-b057-35782f83ea04",
       "name": "REST Countries"
     },
     {
@@ -489,10 +489,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        2544,
-        768
+        624,
+        832
       ],
-      "id": "2ec36260-a24b-438b-af0e-568f6f933bc8",
+      "id": "365f700d-5a6b-4964-98d6-2a8524e3be7d",
       "name": "Wikipedia API"
     },
     {
@@ -503,10 +503,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        2544,
-        928
+        624,
+        992
       ],
-      "id": "e8942f3f-2746-4cb8-b956-28c2c1f63617",
+      "id": "1967941a-1310-4dc5-acd7-926df071b784",
       "name": "Joke API"
     },
     {
@@ -517,11 +517,76 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        2400,
-        448
+        480,
+        512
       ],
-      "id": "9b8fe862-f590-4910-b3c6-b1e75ed71a3c",
+      "id": "8d815c1d-480c-43d3-98a6-47b8eefd56a7",
       "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "content": "## Primer Nodo de Ollama\nDiscernir la intención del usuario para enrutar a la api correcta"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -128,
+        592
+      ],
+      "typeVersion": 1,
+      "id": "57201faa-482a-4c9a-8d1c-0f01ff81449b",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Repertorio de APIs\nTemas de los que puede hablar la IA"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        512,
+        320
+      ],
+      "typeVersion": 1,
+      "id": "d62dcbc8-36a7-4891-81b1-aa396de02193",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Segundo Nodo de Ollama\nRespuesta del ChatBot en funciona de la respuesta de la API"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        992,
+        576
+      ],
+      "typeVersion": 1,
+      "id": "5d76be48-fb87-4d77-8136-6361ce4da801",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Postgres\nInserción de datos a la bd"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1440,
+        576
+      ],
+      "typeVersion": 1,
+      "id": "08b24d75-8abe-4c7c-b431-72adecb7e663",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Mensaje Respuesta\nEnviamos al usuario la respuesta"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1856,
+        592
+      ],
+      "typeVersion": 1,
+      "id": "ba18ee41-d4cf-417c-95c6-8c68cdcf00ed",
+      "name": "Sticky Note4"
     }
   ],
   "pinData": {},
@@ -703,11 +768,11 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "0570fea7-fe45-4010-b7f7-692f8654bf29",
+  "versionId": "969ea3c2-7004-439b-b694-a9d5ac550b67",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "09d36b3ba65a928ffea00308fd058e780deb31751be4d1199ff586bdd105f6cc"
+    "instanceId": "13ea2cd5711a79a2d4fc85e12de3d1f55087a07bc29f1cb286d898791c8ac2ed"
   },
-  "id": "Bad-kIUqO91EZ0LiiQT-3",
+  "id": "4VsCeQT1HB-xh1LIiLdIC",
   "tags": []
 }
