@@ -18,13 +18,13 @@ services:
   #   container_name: n8n_chatbot
   #   restart: unless-stopped
   #   ports:
-  #     - "5678:5678"
+  #     - "${N8N_PORT}:5678"
   #   environment:
-  #     - N8N_USER_FOLDER=/home/node/.n8n
-  #     - N8N_ELASTICBEANSTALK_SSL=true
-  #     - N8N_DIAGNOSTICS_ENABLED=false
-  #     - N8N_VERSION_NOTIFICATIONS_ENABLED=false
-  #     - N8N_TELEMETRY_ENABLED=false
+  #     - N8N_USER_FOLDER=${N8N_USER_FOLDER}
+  #     - N8N_ELASTICBEANSTALK_SSL=${N8N_ELASTICBEANSTALK_SSL}
+  #     - N8N_DIAGNOSTICS_ENABLED=${N8N_DIAGNOSTICS_ENABLED}
+  #     - N8N_VERSION_NOTIFICATIONS_ENABLED=${N8N_VERSION_NOTIFICATIONS_ENABLED}
+  #     - N8N_TELEMETRY_ENABLED=${N8N_TELEMETRY_ENABLED}
   #   volumes:
   #     - n8n_data:/home/node/.n8n
   #   networks:
@@ -39,16 +39,16 @@ services:
     container_name: postgres_chatbot
     restart: unless-stopped
     environment:
-      POSTGRES_DB: chatbot_db
-      POSTGRES_USER: chatbot_admin
-      POSTGRES_PASSWORD: "chatbot"
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ../postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - red-n8n-ollama
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U chatbot_admin -d chatbot_db"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -62,11 +62,11 @@ services:
     container_name: pgadmin_chatbot
     restart: unless-stopped
     environment:
-      PGADMIN_DEFAULT_EMAIL: "fjavier.n8n@gmail.com"
-      PGADMIN_DEFAULT_PASSWORD: "Curso-n8n!"
-      PGADMIN_CONFIG_MAX_LOGIN_ATTEMPTS: 50
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_CONFIG_MAX_LOGIN_ATTEMPTS: ${PGADMIN_CONFIG_MAX_LOGIN_ATTEMPTS}
     ports:
-      - "5050:80"
+      - "${PGADMIN_PORT}:80"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     networks:
