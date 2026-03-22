@@ -1,0 +1,713 @@
+{
+  "name": "RAG DAW",
+  "nodes": [
+    {
+      "parameters": {
+        "dataType": "binary",
+        "textSplittingMode": "custom",
+        "options": {}
+      },
+      "id": "3efb7c89-5083-4fcf-8d8f-571eee224c4a",
+      "name": "Load Documents",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        -2672,
+        336
+      ]
+    },
+    {
+      "parameters": {
+        "chunkOverlap": 200,
+        "options": {}
+      },
+      "id": "bf10b8db-fd55-43c5-b582-77cf24e2425e",
+      "name": "Chunk Documents",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        -2672,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "nombre",
+              "value": "={{$json.metadata.source}}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "num_chunks",
+              "value": "={{$items().length}}",
+              "type": "number"
+            },
+            {
+              "id": "4fe1cc8e-2735-4087-96f8-5665efddb870",
+              "name": "metadata.blobType",
+              "value": "={{ $json.metadata.blobType }}",
+              "type": "string"
+            },
+            {
+              "id": "05b862a1-eb14-48b2-b037-45389a62e630",
+              "name": "submittedAt",
+              "value": "={{ $('On form submission').item.json.submittedAt }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "85087524-27e5-4da3-aac5-fda57834c146",
+      "name": "Extract Metadata",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2400,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "documentos",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nombre": "={{ $json.nombre }}",
+            "num_chunks": "={{ $json.num_chunks }}",
+            "fecha_procesado": "={{ $json.submittedAt }}",
+            "ruta_archivo": "={{ $json.metadata.blobType }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ruta_archivo",
+              "displayName": "ruta_archivo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "num_chunks",
+              "displayName": "num_chunks",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_procesado",
+              "displayName": "fecha_procesado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "585ef4fa-5691-4bf4-aee5-ff446d794a79",
+      "name": "Save to PostgreSQL",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1920,
+        160
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "TM7NLDUriIuAr3Np",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.input || $json.chatInput }}",
+        "options": {
+          "systemMessage": "=Eres un asistente educativo. Responde EXCLUSIVAMENTE basándote en el contexto proporcionado por los documentos. Si la información no está en el contexto, indica que no tienes esa información en los documentos disponibles. Sé preciso y cita el contexto cuando sea relevante."
+        }
+      },
+      "id": "af01fb7d-f9b8-4e6a-997d-ee190bf7fc9f",
+      "name": "RAG Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -944,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "model": "qwen2.5:7b-instruct",
+        "options": {
+          "temperature": 0.3,
+          "numCtx": 4096
+        }
+      },
+      "id": "ca19bfa5-9f43-4c4b-9041-7ac2624a6b8b",
+      "name": "Ollama LLM",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -976,
+        320
+      ],
+      "credentials": {
+        "ollamaApi": {
+          "id": "exI4QOyuF9rRXYPw",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Este será el primer workflow que ejecutaremos para recibir los documentos que subamos. Estos se suben a qdrant después de que ollama los procese en chunks y se suban a postgres. Utilizamos un nodo de código para filtrar los 465 items que devuelve la metadata para insertar uno solo.",
+        "height": 112,
+        "width": 552,
+        "color": 6
+      },
+      "id": "e92fd30a-99fc-460d-a270-27af1562a88f",
+      "name": "Sticky Note 2c14d1e7",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2976,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Este segundo workflow es el que usará la información de los documentos proporcionados, y el agente responderá únicamente con los datos proporcionados. Luego la conversación se guarda en Postgres",
+        "height": 80,
+        "width": 596,
+        "color": 3
+      },
+      "id": "190c5469-d151-4cde-bfae-5bd574c3c2e4",
+      "name": "Sticky Note c922a31e",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1264,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -1264,
+        144
+      ],
+      "id": "dba8f870-0f99-43ba-bc4d-7787ff31abae",
+      "name": "When chat message received",
+      "webhookId": "cee3e721-6c36-4448-bcea-6caac55f9377"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -864,
+        320
+      ],
+      "id": "a01cd667-1f44-42f6-a5f3-7258eef4a7ac",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "model": "nomic-embed-text:latest"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        -752,
+        448
+      ],
+      "id": "cb4e9431-a14f-4e6a-b199-98d8c0cc3407",
+      "name": "Embeddings Ollama1",
+      "credentials": {
+        "ollamaApi": {
+          "id": "exI4QOyuF9rRXYPw",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "nomic-embed-text:latest"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        -2864,
+        384
+      ],
+      "id": "43988d84-cb27-4748-af5c-d7db0fdb4580",
+      "name": "Embeddings Ollama2",
+      "credentials": {
+        "ollamaApi": {
+          "id": "exI4QOyuF9rRXYPw",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Añadir PDF",
+        "formFields": {
+          "values": [
+            {
+              "fieldName": "PDF",
+              "fieldLabel": "Añadir_PDF",
+              "fieldType": "file",
+              "acceptFileTypes": ".pdf, .txt",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.4,
+      "position": [
+        -2992,
+        160
+      ],
+      "id": "df68fb60-6a9a-4441-a0d2-8c6c4038c470",
+      "name": "On form submission",
+      "webhookId": "dec07e79-eb21-4fb7-8a86-a4c2988723f1"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "useful for when you need to answer questions about education. The input should be the user's question.",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "educational_docs",
+          "mode": "list",
+          "cachedResultName": "educational_docs"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.3,
+      "position": [
+        -752,
+        304
+      ],
+      "id": "5ae8b64c-43b0-4781-a25e-70f54c42f076",
+      "name": "Qdrant Vector Store",
+      "credentials": {
+        "qdrantApi": {
+          "id": "WihRu05yfIpCZ0AW",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "educational_docs",
+          "mode": "list",
+          "cachedResultName": "educational_docs"
+        },
+        "embeddingBatchSize": 100,
+        "options": {}
+      },
+      "id": "fd748e4c-2c55-4f2a-9a81-5657964aa683",
+      "name": "Store in Qdrant",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.3,
+      "position": [
+        -2736,
+        144
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "WihRu05yfIpCZ0AW",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "documentos",
+          "mode": "list",
+          "cachedResultName": "documentos"
+        },
+        "limit": 1,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -592,
+        144
+      ],
+      "id": "64339d6b-297c-490b-84f4-4fef683c2031",
+      "name": "Select rows from a table",
+      "credentials": {
+        "postgres": {
+          "id": "TM7NLDUriIuAr3Np",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "consultas_rag",
+          "mode": "list",
+          "cachedResultName": "consultas_rag"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "pregunta": "={{ $('When chat message received').item.json.chatInput }}",
+            "respuesta": "={{ $('RAG Agent').item.json.output }}",
+            "documentos_usados": "={{ [$json.ruta_archivo] }}",
+            "timestamp": "={{ $now }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "pregunta",
+              "displayName": "pregunta",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "respuesta",
+              "displayName": "respuesta",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "documentos_usados",
+              "displayName": "documentos_usados",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "array",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -368,
+        144
+      ],
+      "id": "0c9a1510-443c-4f2c-8fb2-18aa2755e6f5",
+      "name": "Insert rows in a table",
+      "credentials": {
+        "postgres": {
+          "id": "TM7NLDUriIuAr3Np",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Cogemos solo el primer elemento del array de entrada\nconst primerItem = $input.first();\n\n// Devolvemos solo ese objeto envuelto en un array (n8n espera un array)\nreturn [primerItem];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2192,
+        128
+      ],
+      "id": "c31893ae-5128-44ec-8db8-9deb2dc933b4",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtenemos el primer ítem que entra al nodo\nconst item = $input.first();\n\n// Devolvemos un nuevo objeto que solo tiene el campo 'respuesta'\nreturn [\n  {\n    json: {\n      output: item.json.respuesta\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        144
+      ],
+      "id": "56d52d67-e4fd-47c0-8a7a-51bb720e04c9",
+      "name": "Code in JavaScript1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Load Documents": {
+      "ai_document": [
+        [
+          {
+            "node": "Store in Qdrant",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chunk Documents": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Load Documents",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Metadata": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama LLM": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "RAG Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "RAG Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "RAG Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Store in Qdrant",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Store in Qdrant",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "RAG Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store in Qdrant": {
+      "main": [
+        [
+          {
+            "node": "Extract Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RAG Agent": {
+      "main": [
+        [
+          {
+            "node": "Select rows from a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select rows from a table": {
+      "main": [
+        [
+          {
+            "node": "Insert rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Save to PostgreSQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert rows in a table": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "61452c53-0efa-4282-ab49-609bcb0862aa",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "09d36b3ba65a928ffea00308fd058e780deb31751be4d1199ff586bdd105f6cc"
+  },
+  "id": "bnOop0uQN8O7q5rx4L58v",
+  "tags": []
+}
