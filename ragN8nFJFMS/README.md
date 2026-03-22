@@ -90,7 +90,7 @@ A continuación se muestran las evidencias de la correcta configuración y ejecu
 ## 🎥 Vídeo Demostrativo
 Video explicativo donde se muestra el funcionamiento del flujo
 
-> **📺 [Enlace al vídeo en YouTube]**
+> **📺 Enlace al vídeo en YouTube**
 https://youtu.be/SSEzXct4g1s
 
 *En este vídeo se explica la arquitectura orquestada, se realiza la ingesta demostrativa de un documento, varias consultas interactivas haciendo uso del ecosistema RAG, y una visualización técnica validando PostgreSQL y Qdrant con sus colecciones resultantes.*
