@@ -70,26 +70,25 @@ hito3-automatizacion/
 
 A continuación se muestran las evidencias de la correcta configuración y ejecución del proyecto, exigidas para la máxima calificación según la rúbrica de evaluación:
 
-**Captura 1: Vista general del workflow de Ingesta en n8n mostrando los nodos de chunking y Qdrant sin errores.**
-> `[Insertar captura de Workflow de Ingesta en n8n]`
+**Captura 1: Vista general del workflow de Ingesta en n8n mostrando los nodos de chunking, Qdrant y subida a PostgreSQL.**
+![Insertar captura de Workflow de Ingesta en n8n](./docs/capturas/workflowSubirDatos.png)
 
 **Captura 2: Vista general del workflow de Consultas en n8n (RAG) integrando el flujo LLM con Ollama.**
-> `[Insertar captura de Workflow de Consultas en n8n]`
+![Insertar captura de Workflow de Consultas en n8n](./docs/capturas/workflowChatbotRAG.png)
 
-**Captura 3: Interfaz de Qdrant mostrando los vectores creados y persistidos.**
-> `[Insertar captura de Qdrant Dashboard o HTTP response de la colección vectorial]`
+**Captura 3: Interfaz de Qdrant mostrando las colecciones creadas con el archivo subido.**
+![Insertar captura de Qdrant Dashboard o HTTP response de la colección vectorial](./docs/capturas/qdrant.png)
 
 **Captura 4: pgAdmin mostrando la tabla 'documentos' poblada.**
-> `[Insertar captura de pgAdmin con la tabla documentos confirmando las ingestas]`
+![Insertar captura de pgAdmin con la tabla documentos confirmando las ingestas](./docs/capturas/documentosBD.png)
 
 **Captura 5: pgAdmin mostrando la tabla 'consultas_rag' con datos de historial reales.**
-> `[Insertar captura de pgAdmin mostrando interacciones extraídas en un select]`
+![Insertar captura de pgAdmin mostrando interacciones extraídas en un select](./docs/capturas/consultasBD.png)
 
 ---
 
 ## 🎥 Vídeo Demostrativo
-
-Puedes consultar el recorrido completo de la demostración técnica en directo accediendo al vídeo bajo demanda:
+Video explicativo donde se muestra el funcionamiento del flujo
 
 > **📺 [Enlace al vídeo en YouTube]**
 
